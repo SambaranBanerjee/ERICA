@@ -1,0 +1,7 @@
+delay_bucket,total_reviews,average_review_score,low_review_percentage,high_review_percentage
+On time / Early,90450,4.28,9.56,82.32
+1-3 days late,1874,3.28,32.44,52.88
+4-7 days late,1810,2.09,68.07,22.15
+Unknown,2987,1.76,77.7,14.6
+More than 15 days late,1233,1.72,78.51,12.57
+8-15 days late,1646,1.68,80.01,10.87

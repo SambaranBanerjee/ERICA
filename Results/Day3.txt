@@ -1,0 +1,82 @@
+Created the prisma database
+
+python src/create_postgres_warehouse.py
+
+==========================================================================================
+Day 3: Online PostgreSQL Warehouse Setup Started
+==========================================================================================
+
+==========================================================================================
+Validating Processed CSV Files
+==========================================================================================
+All processed files are available.
+
+==========================================================================================
+Creating Schema
+==========================================================================================
+Schema ready: olist
+
+==========================================================================================
+Loading Cleaned CSV Files Into Online PostgreSQL
+==========================================================================================
+Loading customers_clean.csv into olist.customers...
+Loaded customers            rows=99,441 columns=5
+Loading sellers_clean.csv into olist.sellers...
+Loaded sellers              rows=3,095 columns=4
+Loading orders_clean.csv into olist.orders...
+Loaded orders               rows=99,441 columns=17
+Loading order_items_clean.csv into olist.order_items...
+Loaded order_items          rows=112,650 columns=9
+Loading payments_clean.csv into olist.payments...
+Loaded payments             rows=103,886 columns=6
+Loading reviews_clean.csv into olist.reviews...
+Loaded reviews              rows=100,000 columns=10
+Loading products_clean.csv into olist.products...
+Loaded products             rows=32,951 columns=11
+Loading product_categories_clean.csv into olist.product_categories...
+Loaded product_categories   rows=71 columns=2
+Loading geolocation_clean.csv into olist.geolocation...
+Loaded geolocation          rows=19,616 columns=5
+Executing 01_create_indexes.sql...
+Completed 01_create_indexes.sql
+Executing 02_create_analytics_views.sql...
+Completed 02_create_analytics_views.sql
+Executing 03_create_powerbi_views.sql...
+Completed 03_create_powerbi_views.sql
+
+==========================================================================================
+Validating Loaded PostgreSQL Tables
+==========================================================================================
+olist.customers            rows=99,441
+olist.sellers              rows=3,095
+olist.orders               rows=99,441
+olist.order_items          rows=112,650
+olist.payments             rows=103,886
+olist.reviews              rows=100,000
+olist.products             rows=32,951
+olist.product_categories   rows=71
+olist.geolocation          rows=19,616
+
+==========================================================================================
+Validating Analytics Views
+==========================================================================================
+olist.fact_orders                    rows=99,441
+olist.fact_order_items               rows=112,650
+olist.fact_payments                  rows=103,886
+olist.fact_reviews                   rows=100,000
+olist.dim_customers                  rows=99,441
+olist.dim_products                   rows=32,951
+olist.dim_sellers                    rows=3,095
+olist.dim_date                       rows=634
+olist.pbi_executive_kpis             rows=1
+olist.pbi_monthly_revenue            rows=23
+olist.pbi_category_performance       rows=72
+olist.pbi_state_performance          rows=27
+olist.pbi_delivery_performance       rows=27
+olist.pbi_review_delay_impact        rows=6
+olist.pbi_customer_rfm_base          rows=93,358
+
+==========================================================================================
+Day 3 Completed
+==========================================================================================
+Online PostgreSQL warehouse created successfully.
