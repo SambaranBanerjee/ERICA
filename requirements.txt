@@ -1,0 +1,13 @@
+pandas
+numpy
+matplotlib
+plotly
+jupyterlab
+duckdb
+sqlalchemy
+scikit-learn
+scipy
+openpyxl
+python-dotenv
+ydata-profiling
+streamlit
