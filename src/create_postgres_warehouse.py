@@ -11,7 +11,7 @@ load_dotenv()
 DATABASE_URL = os.getenv("DATABASE_URL")
 POSTGRES_SCHEMA = os.getenv("POSTGRES_SCHEMA", "olist")
 
-DATABASE_DIR = BASE_DIR / "database"
+DATABASE_DIR = BASE_DIR / "sql"
 
 
 TABLE_FILES = {
@@ -52,10 +52,17 @@ def print_section(title: str) -> None:
 
 
 def get_engine():
+    global DATABASE_URL 
+    
     if not DATABASE_URL:
         raise ValueError("DATABASE_URL is missing. Add it to your .env file.")
+        
+    # 2. Use a local variable to handle the replacement safely
+    url = DATABASE_URL
+    if url.startswith("postgres://"):
+        url = url.replace("postgres://", "postgresql://", 1)
 
-    return create_engine(DATABASE_URL, pool_pre_ping=True)
+    return create_engine(url, pool_pre_ping=True)
 
 
 def validate_processed_files() -> None:
