@@ -91,7 +91,12 @@ def create_schema(engine) -> None:
     print_section("Creating Schema")
 
     with engine.begin() as conn:
-        conn.execute(text(f'CREATE SCHEMA IF NOT EXISTS "{POSTGRES_SCHEMA}";'))
+        # 1. Drop the existing schema and ALL dependent views/tables cleanly
+        print(f"Dropping existing schema if it exists: {POSTGRES_SCHEMA}...")
+        conn.execute(text(f'DROP SCHEMA IF EXISTS "{POSTGRES_SCHEMA}" CASCADE;'))
+        
+        # 2. Re-create a fresh, blank schema
+        conn.execute(text(f'CREATE SCHEMA "{POSTGRES_SCHEMA}";'))
 
     print(f"Schema ready: {POSTGRES_SCHEMA}")
 
@@ -183,6 +188,7 @@ def validate_views(engine) -> None:
         "pbi_delivery_performance",
         "pbi_review_delay_impact",
         "pbi_customer_rfm_base",
+        "pbi_rfm_segments"
     ]
 
     with engine.begin() as conn:
@@ -207,6 +213,8 @@ def main() -> None:
     execute_sql_file(engine, "01_create_indexes.sql")
     execute_sql_file(engine, "02_create_analytics_views.sql")
     execute_sql_file(engine, "03_create_powerbi_views.sql")
+    execute_sql_file(engine, "04_create_rfm_views.sql")
+
 
     validate_loaded_tables(engine)
     validate_views(engine)
