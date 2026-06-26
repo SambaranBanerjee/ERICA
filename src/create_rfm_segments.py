@@ -42,7 +42,12 @@ def get_engine():
     if not DATABASE_URL:
         raise ValueError("DATABASE_URL is missing. Add it to your .env file.")
 
-    return create_engine(DATABASE_URL, pool_pre_ping=True)
+    # Fix the deprecated postgres:// prefix dynamically
+    url = DATABASE_URL
+    if url.startswith("postgres://"):
+        url = url.replace("postgres://", "postgresql://", 1)
+
+    return create_engine(url, pool_pre_ping=True)
 
 
 def export_rfm_segments() -> None:
@@ -113,3 +118,10 @@ Recency Score
 Frequency Score
 Monetary Score```
 """
+    
+    RFM_REPORT_FILE.write_text(report, encoding="utf-8")
+    print(f"Saved report: {RFM_REPORT_FILE}")
+    print_section("Day 8 Completed")
+
+if __name__ == "__main__":
+    export_rfm_segments()
